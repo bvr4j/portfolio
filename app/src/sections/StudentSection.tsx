@@ -65,7 +65,7 @@ export function StudentSection() {
         <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-4">
           <Card delay={0}>
             <span className="text-[0.6875rem] tracking-[0.04em] text-[#52525B] block mb-3">
-              B.TECH &middot; 2022 &mdash; PRESENT
+              B.TECH &middot; 2025 &mdash; PRESENT
             </span>
             <h3 className="text-[1.125rem] md:text-[1.375rem] font-medium text-[#FAFAFA] mb-2">
               Marwadi University

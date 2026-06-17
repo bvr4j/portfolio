@@ -92,7 +92,7 @@ export function BuilderSection() {
                 <span className="text-[0.75rem] tracking-[0.04em] text-[#A1A1AA]">IN DEVELOPMENT</span>
               </div>
 
-              <Button variant="ghost" href="https://github.com/bvr4j" icon={<ExternalLink size={14} />}>
+              <Button variant="ghost" href="https://github.com/bvr4j/TalentIQ" icon={<ExternalLink size={14} />}>
                 View on GitHub
               </Button>
             </motion.div>
@@ -144,7 +144,7 @@ export function BuilderSection() {
               {/* Center branding */}
               <div className="relative z-10 text-center">
                 <h3 className="font-serif text-3xl md:text-4xl text-[#FAFAFA] mb-2">TalentIQ</h3>
-                <p className="text-[0.75rem] tracking-[0.1em] uppercase text-[#52525B]">Dashboard Preview</p>
+                <p className="text-[0.75rem] tracking-[0.1em] uppercase text-[#52525B]">Improving Recruitment Processes With AI</p>
               </div>
 
               {/* Glow effect */}

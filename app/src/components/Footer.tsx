@@ -1,3 +1,4 @@
+
 import { Github, Linkedin } from 'lucide-react'
 
 export function Footer() {
@@ -5,7 +6,7 @@ export function Footer() {
     <footer className="w-full border-t border-[#222222] py-8 px-6 md:px-12">
       <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <span className="text-[0.8125rem] tracking-[0.02em] text-[#52525B]">
-          &copy; 2025
+          &copy; 2026
         </span>
         <span className="text-[0.8125rem] tracking-[0.02em] text-[#52525B]">
           Designed &amp; built by Tanish Panwar

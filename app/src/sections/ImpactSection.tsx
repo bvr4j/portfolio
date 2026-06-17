@@ -16,7 +16,7 @@ const opportunities = [
   },
   {
     icon: Trophy,
-    title: 'Hackathons',
+    title: 'Hackathons & CTFs',
     description: 'I thrive under constraints and deadlines. Always looking for competitions that push me to ship fast and think creatively.',
   },
   {
