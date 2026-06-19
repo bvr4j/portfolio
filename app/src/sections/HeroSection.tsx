@@ -163,8 +163,8 @@ function InterestCard3D({ data, index }: { data: CardData; index: number }) {
             }}
           />
           <div className="relative z-10">
-            <Icon size={24} className={`text-[#FAFAFA] mb-4 ${data.title === 'Drones' ? 'rotate-[-45deg]' : ''}`} />
-            <h3 className="text-[1.125rem] md:text-[1.375rem] font-medium text-[#FAFAFA] mb-2">
+            <Icon size={24} className={`text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.35)] mb-4 ${data.title === 'Drones' ? 'rotate-[-45deg]' : ''}`} />
+            <h3 className="text-[1.125rem] md:text-[1.375rem] font-medium text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.35)] mb-2">
               {data.title}
             </h3>
             <p className="text-[0.8125rem] md:text-[0.9375rem] leading-relaxed text-[#A1A1AA] mb-3">
@@ -235,22 +235,34 @@ export function HeroSection() {
 
   // Calculate which text line is visible based on scroll
   const getLineOpacity = (lineIndex: number) => {
-    const vh = window.innerHeight
-    const scrollInVh = scrollY / vh
+  const timings = [
+    [0, 2],
+    [2, 4],
+    [4, 6],
+    [6, 8],
+    [8, 10],
+    [10, 12],
+  ]
 
-    // Text sequence occupies scroll 0-100vh (first third of 300vh pin)
-    // Distribute 6 lines across 0-90vh
-    const lineStart = lineIndex * 15
-    const lineEnd = lineStart + 15
-    const fadeInEnd = lineStart + 5
-    const fadeOutStart = lineEnd - 5
+  const elapsed = scrollY === 0
+    ? performance.now() / 1000
+    : performance.now() / 1000
 
-    if (scrollInVh < lineStart) return 0
-    if (scrollInVh < fadeInEnd) return (scrollInVh - lineStart) / 5
-    if (scrollInVh < fadeOutStart) return 1
-    if (scrollInVh < lineEnd) return 1 - (scrollInVh - fadeOutStart) / 5
-    return 0
+  const [start, end] = timings[lineIndex]
+
+  if (elapsed < start) return 0
+  if (elapsed > end) return 0
+
+  if (elapsed < start + 0.5) {
+    return (elapsed - start) / 0.5
   }
+
+  if (elapsed > end - 0.5) {
+    return (end - elapsed) / 0.5
+  }
+
+  return 1
+}
 
   // Background transition
   const bgProgress = Math.min(scrollY / window.innerHeight / 0.5, 1)
@@ -306,7 +318,7 @@ export function HeroSection() {
                 className={`absolute left-0 right-0 top-1/2 -translate-y-1/2 px-6 transition-opacity duration-100 ${
                   line.sub
                     ? 'font-sans text-[0.875rem] md:text-[1.0625rem] leading-relaxed tracking-[0.02em] text-[#A1A1AA]'
-                    : 'font-serif text-[2rem] md:text-[3.5rem] leading-[1.15] tracking-[-0.02em] text-[#FAFAFA]'
+                   : 'font-serif text-[2.5rem] md:text-[5rem] leading-[1.15] tracking-[-0.02em] text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.35)]'
                 }`}
                 style={{ opacity, pointerEvents: opacity > 0.5 ? 'auto' : 'none' }}
               >
