@@ -347,13 +347,15 @@ export function HeroSection() {
   className={`absolute left-0 right-0 top-1/2 -translate-y-1/2 px-6 transition-all duration-700 ease-out ${
     line.sub
       ? 'font-sans text-[0.875rem] md:text-[1.0625rem] leading-relaxed tracking-[0.02em] text-[#A1A1AA]'
-      : 'font-serif text-[3rem] md:text-[5rem] leading-[1.15] tracking-[-0.02em] text-white drop-shadow-[0_0_40px_rgba(255,255,255,0.8)]'
+      : 'font-serif text-[4rem] md:text-[7rem] leading-[1.15] tracking-[-0.02em] text-white drop-shadow-[0_0_80px_rgba(255,255,255,1)]'
   }`}
 style={{
   opacity,
   transform: `translateY(${(1 - opacity) * 45}px) scale(${0.90 + opacity * 0.10})`,
   filter: `blur(${(1 - opacity) * 4}px)`,
   pointerEvents: opacity > 0.5 ? 'auto' : 'none'
+  filter: `blur(${(1 - opacity) * 8}px)`,
+letterSpacing: `${opacity * 0.02}em`,
 }}
 >
                 {line.text}
