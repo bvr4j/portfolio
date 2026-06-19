@@ -80,7 +80,7 @@ interface CardData {
 
 const cardsData: CardData[] = [
   {
-    position: [-12, 2, 20],
+    position: [-6, 2, 10],
     icon: Bot,
     title: 'Robotics',
     description: 'Building mechanical systems that bridge the gap between digital intelligence and physical action.',
@@ -89,7 +89,7 @@ const cardsData: CardData[] = [
     phase: 0,
   },
   {
-    position: [10, 6, -30],
+    position: [6, 3, 5],
     icon: Plane,
     title: 'Drones',
     description: 'Exploring autonomous flight, navigation systems, and aerial robotics for real-world applications.',
@@ -98,7 +98,7 @@ const cardsData: CardData[] = [
     phase: Math.PI * 0.5,
   },
   {
-    position: [-8, -5, 10],
+    position: [-5, -3, 0],
     icon: Shield,
     title: 'Cybersecurity',
     description: 'Understanding the defense of digital systems \u2014 from network security to ethical hacking.',
@@ -107,7 +107,7 @@ const cardsData: CardData[] = [
     phase: Math.PI,
   },
   {
-    position: [14, -2, -10],
+    position: [5, -2, 3],
     icon: BrainCircuit,
     title: 'Agentic AI',
     description: 'Creating autonomous AI agents that can reason, plan, and execute tasks independently.',
@@ -133,8 +133,8 @@ function InterestCard3D({ data, index }: { data: CardData; index: number }) {
     groupRef.current.position.y = data.position[1] + floatY
 
     // Mouse parallax
-    const targetX = data.position[0] + mouseRef.current.x * 15 * (1 - data.position[2] / 200)
-    const targetY = data.position[1] + floatY + mouseRef.current.y * 15 * (1 - data.position[2] / 200)
+    const targetX = data.position[0] + mouseRef.current.x * 5 * (1 - data.position[2] / 200)
+    const targetY = data.position[1] + floatY + mouseRef.current.y * 5 * (1 - data.position[2] / 200)
     groupRef.current.position.x += (targetX - groupRef.current.position.x) * 0.05
     groupRef.current.position.y += (targetY - groupRef.current.position.y) * 0.05
   })
@@ -240,8 +240,14 @@ export function HeroSection() {
 
     // Text sequence occupies scroll 0-100vh (first third of 300vh pin)
     // Distribute 6 lines across 0-90vh
-    const lineStart = lineIndex * 15
-    const lineEnd = lineStart + 15
+    const lineStart = lineIndex * 20
+    const lineEnd = lineStart + 25
+    if (lineIndex === 0) {
+  if (scrollInVh < 5) return scrollInVh / 5
+  if (scrollInVh < 35) return 1
+  if (scrollInVh < 40) return 1 - (scrollInVh - 35) / 5
+  return 0
+}
     const fadeInEnd = lineStart + 5
     const fadeOutStart = lineEnd - 5
 
@@ -276,14 +282,10 @@ export function HeroSection() {
 
       {/* 3D Canvas */}
       <div
-        ref={canvasContainerRef}
-        className="absolute inset-0 z-[1]"
-        style={{
-  opacity,
-  transform: `translateY(${(1 - opacity) * 30}px) scale(${0.95 + opacity * 0.05})`,
-  pointerEvents: opacity > 0.5 ? 'auto' : 'none'
-}}
-      >
+  ref={canvasContainerRef}
+  className="absolute inset-0 z-[1]"
+  style={{ opacity: sceneOpacity }}
+>
         <Canvas
           camera={{ position: [0, 0, 30], fov: 50, near: 0.1, far: 1000 }}
           dpr={Math.min(window.devicePixelRatio, 2)}
@@ -306,14 +308,18 @@ export function HeroSection() {
             if (opacity <= 0) return null
             return (
               <p
-                key={i}
-                className={`absolute left-0 right-0 top-1/2 -translate-y-1/2 px-6 transition-opacity duration-100 ${
-                  line.sub
-                    ? 'font-sans text-[0.875rem] md:text-[1.0625rem] leading-relaxed tracking-[0.02em] text-[#A1A1AA]'
-                    : 'font-serif text-[2.5rem] md:text-[4.5rem] leading-[1.15] tracking-[-0.02em] text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.6)]'
-                }`}
-                style={{ opacity, pointerEvents: opacity > 0.5 ? 'auto' : 'none' }}
-              >
+  key={i}
+  className={`absolute left-0 right-0 top-1/2 -translate-y-1/2 px-6 transition-all duration-500 ${
+    line.sub
+      ? 'font-sans text-[0.875rem] md:text-[1.0625rem] leading-relaxed tracking-[0.02em] text-[#A1A1AA]'
+      : 'font-serif text-[3rem] md:text-[5rem] leading-[1.15] tracking-[-0.02em] text-white drop-shadow-[0_0_40px_rgba(255,255,255,0.8)]'
+  }`}
+  style={{
+    opacity,
+    transform: `translateY(${(1 - opacity) * 20}px) scale(${0.96 + opacity * 0.04})`,
+    pointerEvents: opacity > 0.5 ? 'auto' : 'none'
+  }}
+>
                 {line.text}
               </p>
             )
