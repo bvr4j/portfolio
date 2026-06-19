@@ -10,6 +10,7 @@ import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { useCanvasVisibility } from '@/hooks/useCanvasVisibility'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import tanishPhoto from '@/assets/images/tanish-sec.jpeg'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -294,20 +295,41 @@ export function HeroSection() {
       />
 
       {/* 3D Canvas */}
-      <div
-  ref={canvasContainerRef}
-  className="absolute inset-0 z-[1]"
-  style={{ opacity: sceneOpacity }}
->
-        <Canvas
-          camera={{ position: [0, 0, 30], fov: 50, near: 0.1, far: 1000 }}
-          dpr={Math.min(window.devicePixelRatio, 2)}
-          gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
-          frameloop={visible ? 'always' : 'demand'}
-        >
-          <HeroScene />
-        </Canvas>
-      </div>
+     {/* Hero Layout */}
+<div className="absolute inset-0 z-[1] flex items-center justify-center">
+  <div className="w-full max-w-7xl px-12 flex items-center justify-between gap-16">
+
+    {/* Left Photo */}
+    <div className="flex-shrink-0">
+      <img
+        src={tanishPhoto}
+        alt="Tanish Panwar"
+        className="
+          w-[380px]
+          h-[500px]
+          object-cover
+          rounded-[32px]
+          border border-white/10
+          shadow-[0_0_60px_rgba(255,255,255,0.08)]
+        "
+      />
+    </div>
+
+    {/* Right Cards */}
+    <div
+      ref={canvasContainerRef}
+      className="relative w-[700px] h-[600px]"
+      style={{ opacity: sceneOpacity }}
+    >
+      <Canvas
+        camera={{ position: [0, 0, 30], fov: 50 }}
+      >
+        <HeroScene />
+      </Canvas>
+    </div>
+
+  </div>
+</div>
 
       {/* Text Overlay */}
       <div
