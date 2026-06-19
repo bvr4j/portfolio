@@ -209,7 +209,7 @@ export function HeroSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const textContainerRef = useRef<HTMLDivElement>(null)
   const [scrollY, setScrollY] = useState(0)
-  const { ref: canvasContainerRef, visible } = useCanvasVisibility()
+  const { ref: canvasContainerRef } = useCanvasVisibility()
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
