@@ -80,7 +80,7 @@ interface CardData {
 
 const cardsData: CardData[] = [
   {
-    position: [-6, 2, 10],
+    position: [-10, 5, 8],
     icon: Bot,
     title: 'Robotics',
     description: 'Building mechanical systems that bridge the gap between digital intelligence and physical action.',
@@ -89,7 +89,7 @@ const cardsData: CardData[] = [
     phase: 0,
   },
   {
-    position: [10, 6, -30],
+    position: [10, 5, 8],
     icon: Plane,
     title: 'Drones',
     description: 'Exploring autonomous flight, navigation systems, and aerial robotics for real-world applications.',
@@ -98,7 +98,7 @@ const cardsData: CardData[] = [
     phase: Math.PI * 0.5,
   },
   {
-    position: [-5, -3, 0],
+    position: [-10, -5, 8],
     icon: Shield,
     title: 'Cybersecurity',
     description: 'Understanding the defense of digital systems \u2014 from network security to ethical hacking.',
@@ -107,7 +107,7 @@ const cardsData: CardData[] = [
     phase: Math.PI,
   },
   {
-    position: [5, -2, 3],
+    position: [10, -5, 8],
     icon: BrainCircuit,
     title: 'Agentic AI',
     description: 'Creating autonomous AI agents that can reason, plan, and execute tasks independently.',
@@ -133,8 +133,8 @@ function InterestCard3D({ data, index }: { data: CardData; index: number }) {
     groupRef.current.position.y = data.position[1] + floatY
 
     // Mouse parallax
-    const targetX = data.position[0] + mouseRef.current.x * 5 * (1 - data.position[2] / 200)
-    const targetY = data.position[1] + floatY + mouseRef.current.y * 5 * (1 - data.position[2] / 200)
+    const targetX = data.position[0] + mouseRef.current.x * 15 * (1 - data.position[2] / 200)
+    const targetY = data.position[1] + floatY + mouseRef.current.y * 15 * (1 - data.position[2] / 200)
     groupRef.current.position.x += (targetX - groupRef.current.position.x) * 0.05
     groupRef.current.position.y += (targetY - groupRef.current.position.y) * 0.05
   })
