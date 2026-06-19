@@ -163,8 +163,8 @@ function InterestCard3D({ data, index }: { data: CardData; index: number }) {
             }}
           />
           <div className="relative z-10">
-            <Icon size={24} className={`text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.35)] mb-4 ${data.title === 'Drones' ? 'rotate-[-45deg]' : ''}`} />
-            <h3 className="text-[1.125rem] md:text-[1.375rem] font-medium text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.35)] mb-2">
+            <Icon size={24} className={`text-[#FAFAFA] mb-4 ${data.title === 'Drones' ? 'rotate-[-45deg]' : ''}`} />
+            <h3 className="text-[1.125rem] md:text-[1.375rem] font-medium text-[#FAFAFA] mb-2">
               {data.title}
             </h3>
             <p className="text-[0.8125rem] md:text-[0.9375rem] leading-relaxed text-[#A1A1AA] mb-3">
@@ -196,18 +196,18 @@ function HeroScene() {
 
 /* ─── Main Hero Section ─── */
 const textLines = [
-  "Hi, I'm Tanish Panwar.",
-  "A Builder.",
-  "An AI Engineer.",
-  "A Full Stack Developer.",
-  "Building Intelligent Systems.",
-  "This is my story."
+  { text: "Hi, I'm Tanish Panwar.", sub: false },
+  { text: 'A builder.', sub: false },
+  { text: 'A student exploring intelligent systems.', sub: true },
+  { text: 'From code... to machines... to autonomous systems.', sub: true },
+  { text: 'What happens when intelligence leaves the screen and enters the real world?', sub: false },
+  { text: 'This is my story.', sub: false },
 ]
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const textContainerRef = useRef<HTMLDivElement>(null)
-  const [timeline, setTimeline] = useState(0)
+  const [scrollY, setScrollY] = useState(0)
   const { ref: canvasContainerRef, visible } = useCanvasVisibility()
 
   useEffect(() => {
@@ -233,78 +233,33 @@ export function HeroSection() {
     return () => st.kill()
   }, [])
 
-  export function HeroSection() {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const textContainerRef = useRef<HTMLDivElement>(null)
-
-  const [scrollY, setScrollY] = useState(0)
-
-  // ADD HERE
-  const [currentLine, setCurrentLine] = useState(0)
-
-  const { ref: canvasContainerRef, visible } = useCanvasVisibility()
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentLine(prev => {
-        if (prev >= textLines.length - 1) {
-          clearInterval(interval)
-          return prev
-        }
-        return prev + 1
-      })
-    }, 2000)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  // Existing useEffects continue below...
-
   // Calculate which text line is visible based on scroll
   const getLineOpacity = (lineIndex: number) => {
-  const timings = [
-    [0, 2],
-    [2, 4],
-    [4, 6],
-    [6, 8],
-    [8, 10],
-    [10, 12],
-  ]
+    const vh = window.innerHeight
+    const scrollInVh = scrollY / vh
 
-  const elapsed = scrollY === 0
-    ? performance.now() / 1000
-    : performance.now() / 1000
+    // Text sequence occupies scroll 0-100vh (first third of 300vh pin)
+    // Distribute 6 lines across 0-90vh
+    const lineStart = lineIndex * 15
+    const lineEnd = lineStart + 15
+    const fadeInEnd = lineStart + 5
+    const fadeOutStart = lineEnd - 5
 
-  const [start, end] = timings[lineIndex]
-
-  if (elapsed < start) return 0
-  if (elapsed > end) return 0
-
-  if (elapsed < start + 0.5) {
-    return (elapsed - start) / 0.5
+    if (scrollInVh < lineStart) return 0
+    if (scrollInVh < fadeInEnd) return (scrollInVh - lineStart) / 5
+    if (scrollInVh < fadeOutStart) return 1
+    if (scrollInVh < lineEnd) return 1 - (scrollInVh - fadeOutStart) / 5
+    return 0
   }
-
-  if (elapsed > end - 0.5) {
-    return (end - elapsed) / 0.5
-  }
-
-  return 1
-}
 
   // Background transition
   const bgProgress = Math.min(scrollY / window.innerHeight / 0.5, 1)
   const bgColor = `rgb(${Math.round(bgProgress * 5)}, ${Math.round(bgProgress * 5)}, ${Math.round(bgProgress * 5)})`
 
   // 3D scene opacity
-  const [sceneOpacity, setSceneOpacity] = useState(0)
-
-useEffect(() => {
-  const timer = setTimeout(() => {
-    setSceneOpacity(1)
-  }, 7000)
-
-  return () => clearTimeout(timer)
-}, [])
+  const sceneOpacity = scrollY > window.innerHeight * 0.8
+    ? Math.min((scrollY - window.innerHeight * 0.8) / (window.innerHeight * 0.4), 1)
+    : 0
 
   // Text container opacity fades out as 3D scene fades in
   const textOpacity = scrollY > window.innerHeight * 0.7
@@ -341,17 +296,25 @@ useEffect(() => {
         className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none"
         style={{ opacity: textOpacity }}
       >
-  <div className="max-w-[900px] mx-auto px-6 text-center">
-  <motion.h1
-    key={currentLine}
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.8 }}
-    className="font-serif text-[2.5rem] md:text-[5rem] leading-[1.15] tracking-[-0.02em] text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]"
-  >
-    {textLines[currentLine]}
-  </motion.h1>
-</div>
+        <div className="max-w-[720px] mx-auto px-6 text-center">
+          {textLines.map((line, i) => {
+            const opacity = getLineOpacity(i)
+            if (opacity <= 0) return null
+            return (
+              <p
+                key={i}
+                className={`absolute left-0 right-0 top-1/2 -translate-y-1/2 px-6 transition-opacity duration-100 ${
+                  line.sub
+                    ? 'font-sans text-[0.875rem] md:text-[1.0625rem] leading-relaxed tracking-[0.02em] text-[#A1A1AA]'
+                    : 'font-serif text-[2.5rem] md:text-[4.5rem] leading-[1.15] tracking-[-0.02em] text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.6)]'
+                }`}
+                style={{ opacity, pointerEvents: opacity > 0.5 ? 'auto' : 'none' }}
+              >
+                {line.text}
+              </p>
+            )
+          })}
+        </div>
       </div>
 
       {/* Scroll Indicator */}
