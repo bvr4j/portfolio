@@ -241,11 +241,24 @@ export function HeroSection() {
     // Text sequence occupies scroll 0-100vh (first third of 300vh pin)
     // Distribute 6 lines across 0-90vh
     const lineStart = lineIndex * 20
-    const lineEnd = lineStart + 25
+    const lineEnd = lineStart + 30
     if (lineIndex === 0) {
-  if (scrollInVh < 5) return scrollInVh / 5
-  if (scrollInVh < 35) return 1
-  if (scrollInVh < 40) return 1 - (scrollInVh - 35) / 5
+  const fadeInEnd = 5
+  const holdEnd = 40
+  const fadeOutEnd = 48
+
+  if (scrollInVh < fadeInEnd) {
+    return scrollInVh / fadeInEnd
+  }
+
+  if (scrollInVh < holdEnd) {
+    return 1
+  }
+
+  if (scrollInVh < fadeOutEnd) {
+    return 1 - (scrollInVh - holdEnd) / (fadeOutEnd - holdEnd)
+  }
+
   return 0
 }
     const fadeInEnd = lineStart + 5
