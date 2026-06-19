@@ -241,8 +241,8 @@ export function HeroSection() {
 
     // Text sequence occupies scroll 0-100vh (first third of 300vh pin)
     // Distribute 6 lines across 0-90vh
-    const lineStart = lineIndex * 20
-    const lineEnd = lineStart + 30
+    const lineStart = lineIndex * 35
+    const lineEnd = lineStart + 45
     if (lineIndex === 0) {
   const fadeInEnd = 5
   const holdEnd = 40
@@ -301,18 +301,19 @@ export function HeroSection() {
 
     {/* Left Photo */}
     <div className="flex-shrink-0">
-      <img
-        src={tanishPhoto}
-        alt="Tanish Panwar"
-        className="
-          w-[380px]
-          h-[500px]
-          object-cover
-          rounded-[32px]
-          border border-white/10
-          shadow-[0_0_60px_rgba(255,255,255,0.08)]
-        "
-      />
+    <img
+  src={tanishPhoto}
+  alt="Tanish Panwar"
+  className="
+    w-[380px]
+    h-[500px]
+    object-cover
+    rounded-[32px]
+    border border-white/10
+    shadow-[0_0_60px_rgba(255,255,255,0.08)]
+    animate-[float_6s_ease-in-out_infinite]
+  "
+/>
     </div>
 
     {/* Right Cards */}
@@ -352,12 +353,11 @@ export function HeroSection() {
 style={{
   opacity,
   transform: `translateY(${(1 - opacity) * 45}px) scale(${0.90 + opacity * 0.10})`,
-  filter: `blur(${(1 - opacity) * 4}px)`,
-  pointerEvents: opacity > 0.5 ? 'auto' : 'none'
   filter: `blur(${(1 - opacity) * 8}px)`,
-letterSpacing: `${opacity * 0.02}em`,
+  letterSpacing: `${opacity * 0.02}em`,
+  pointerEvents: opacity > 0.5 ? 'auto' : 'none'
 }}
->
+/>
                 {line.text}
               </p>
             )
