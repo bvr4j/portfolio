@@ -278,7 +278,11 @@ export function HeroSection() {
       <div
         ref={canvasContainerRef}
         className="absolute inset-0 z-[1]"
-        style={{ opacity: sceneOpacity }}
+        style={{
+  opacity,
+  transform: `translateY(${(1 - opacity) * 30}px) scale(${0.95 + opacity * 0.05})`,
+  pointerEvents: opacity > 0.5 ? 'auto' : 'none'
+}}
       >
         <Canvas
           camera={{ position: [0, 0, 30], fov: 50, near: 0.1, far: 1000 }}
