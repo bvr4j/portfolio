@@ -89,7 +89,7 @@ const cardsData: CardData[] = [
     phase: 0,
   },
   {
-    position: [6, 3, 5],
+    position: [10, 6, -30],
     icon: Plane,
     title: 'Drones',
     description: 'Exploring autonomous flight, navigation systems, and aerial robotics for real-world applications.',
@@ -322,16 +322,17 @@ export function HeroSection() {
             return (
               <p
   key={i}
-  className={`absolute left-0 right-0 top-1/2 -translate-y-1/2 px-6 transition-all duration-500 ${
+  className={`absolute left-0 right-0 top-1/2 -translate-y-1/2 px-6 transition-all duration-700 ease-out ${
     line.sub
       ? 'font-sans text-[0.875rem] md:text-[1.0625rem] leading-relaxed tracking-[0.02em] text-[#A1A1AA]'
       : 'font-serif text-[3rem] md:text-[5rem] leading-[1.15] tracking-[-0.02em] text-white drop-shadow-[0_0_40px_rgba(255,255,255,0.8)]'
   }`}
-  style={{
-    opacity,
-    transform: `translateY(${(1 - opacity) * 20}px) scale(${0.96 + opacity * 0.04})`,
-    pointerEvents: opacity > 0.5 ? 'auto' : 'none'
-  }}
+style={{
+  opacity,
+  transform: `translateY(${(1 - opacity) * 45}px) scale(${0.90 + opacity * 0.10})`,
+  filter: `blur(${(1 - opacity) * 4}px)`,
+  pointerEvents: opacity > 0.5 ? 'auto' : 'none'
+}}
 >
                 {line.text}
               </p>
